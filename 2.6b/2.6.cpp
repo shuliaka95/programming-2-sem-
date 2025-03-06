@@ -1,29 +1,32 @@
 ﻿#include "doubly_linked_list.h"
-#include <iostream>
 
 int main() {
-    DoublyLinkedList list;         // Создаем экземпляр списка
-    int n;                         // Количество элементов
+    DoublyLinkedList list;
+    initList(&list); // Инициализация списка
 
-    // Ввод количества элементов с проверкой
-    std::cout << "Enter number of elements (must be even): ";
+    // Ввод количества элементов
+    int n;
+    std::cout << "Enter number of elements (must be whole number): ";
     std::cin >> n;
-    if (n <= 0 || n % 2 != 0) {    // Если ввод некорректен
-        std::cerr << "Invalid input! Number must be positive and even.\n";
-        return 1;                  // Завершаем программу с ошибкой
+
+    // Проверка корректности ввода
+    if (n <= 0 || n % 2 != 0) {
+        std::cout << "Invalid input! Number must be positive and whole number.\n";
+        freeList(&list); // Очистка памяти даже при ошибке ввода
+        return 1;
     }
 
-    // Заполнение списка
+    // Заполнение списка значениями
     std::cout << "Enter " << n << " elements:\n";
     for (int i = 0; i < n; ++i) {
         double val;
-        std::cin >> val;           // Считываем значение
-        list.push_back(val);       // Добавляем его в список
+        std::cin >> val;
+        pushBack(&list, val); // Добавление элемента
     }
 
     // Вычисление и вывод результата
-    double result = list.calculateSum();
-    std::cout << "Result: " << result << std::endl;
+    std::cout << "Result: " << calculateSum(&list) << "\n";
 
-    return 0;                      // Успешное завершение программы
+    freeList(&list); // Освобождение памяти
+    return 0;
 }

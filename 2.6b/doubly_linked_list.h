@@ -1,27 +1,32 @@
 #pragma once
 
+#include <iostream>
+
 // Структура узла двусвязного списка
 struct Node {
     double data;     // Значение, хранящееся в узле
-    Node* prev;      // Указатель на предыдущий узел в списке
-    Node* next;      // Указатель на следующий узел в списке
-
-    // Конструктор узла: инициализирует данные и указатели
-    Node(double val) : data(val), prev(nullptr), next(nullptr) {}
+    Node* prev;      // Указатель на предыдущий узел
+    Node* next;      // Указатель на следующий узел
 };
 
-// Класс для управления двусвязным списком
-class DoublyLinkedList {
-private:
-    Node* head;      // Указатель на первый узел списка
-    Node* tail;      // Указатель на последний узел списка
-    int size;        // Количество элементов в списке
-
-public:
-    DoublyLinkedList();          // Конструктор: создает пустой список
-    ~DoublyLinkedList();         // Деструктор: освобождает память
-    void push_back(double val);   // Добавляет элемент в конец списка
-    Node* getNode(int index);     // Возвращает узел по индексу
-    double calculateSum();        // Вычисляет сумму по условию задачи
+// Структура для управления двусвязным списком
+struct DoublyLinkedList {
+    Node* head = nullptr; // Указатель на первый элемент списка
+    Node* tail = nullptr; // Указатель на последний элемент списка
+    int size = 0;         // Текущее количество элементов в списке
 };
 
+// Инициализирует список, устанавливая начальные значения
+void initList(DoublyLinkedList* list);
+
+// Освобождает всю память, занятую списком
+void freeList(DoublyLinkedList* list);
+
+// Добавляет новый элемент в конец списка
+void pushBack(DoublyLinkedList* list, double val);
+
+// Возвращает узел по указанному индексу (начиная с 0)
+Node* getNode(const DoublyLinkedList* list, int index);
+
+// Вычисляет сумму произведений пар элементов: a1*an+1 + a2*an+2 + ... + an*a2n
+double calculateSum(const DoublyLinkedList* list);
